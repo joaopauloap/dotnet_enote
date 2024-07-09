@@ -17,11 +17,18 @@ namespace eshop.Controllers
         }
 
         [HttpPost]
-        public User Login([FromBody] LoginDto loginDto)
+        public ActionResult<User> Login([FromBody] LoginDto loginDto)
         {
-            return _context.Users
+            User user = _context.Users
                 .Where(x => x.Email.Equals(loginDto.Email) && x.Password.Equals(loginDto.Password))
                 .FirstOrDefault();
+
+            if (user == null)
+            {
+                return Unauthorized("Erro no login. Usuário ou senha incorretos!");
+            }
+
+            return user; ;
         }
     }
 }
