@@ -18,7 +18,7 @@ namespace eshop.Controllers
 
         [HttpPost]
         [Route("login")]
-        public ActionResult<User> Login([FromBody] LoginDto loginDto)
+        public ActionResult<UserDto> Login([FromBody] LoginDto loginDto)
         {
             User user = _context.Users
                 .Where(x => x.Email.Equals(loginDto.Email) && x.Password.Equals(loginDto.Password))
@@ -29,7 +29,7 @@ namespace eshop.Controllers
                 return Unauthorized("Usuário ou senha incorretos!");
             }
 
-            return user; ;
+            return new UserDto(user); ;
         }
 
         [HttpPost]
