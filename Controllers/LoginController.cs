@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eshop.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class LoginController : Controller
     {
@@ -17,6 +17,7 @@ namespace eshop.Controllers
         }
 
         [HttpPost]
+        [Route("login")]
         public ActionResult<User> Login([FromBody] LoginDto loginDto)
         {
             User user = _context.Users
@@ -25,8 +26,21 @@ namespace eshop.Controllers
 
             if (user == null)
             {
-                return Unauthorized("Erro no login. Usuário ou senha incorretos!");
+                return Unauthorized("Usuário ou senha incorretos!");
             }
+
+            return user; ;
+        }
+
+        [HttpPost]
+        [Route("register")]
+        public ActionResult<User> Register([FromBody] User user)
+        {
+
+            //TODO fazer validação de user
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
 
             return user; ;
         }

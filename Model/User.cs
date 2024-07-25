@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using eshop.Dto;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eshop.Model
@@ -6,6 +7,7 @@ namespace eshop.Model
     [Table("users")]
     public class User
     {
+
         [Key]
         public long Id { get; set; }
         [Required]
@@ -14,8 +16,8 @@ namespace eshop.Model
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
-        public IEnumerable<Note> Notes { get; set; }
+        public IEnumerable<Note>? Notes { get; set; }
     }
 }
